@@ -10,6 +10,6 @@ int main()
     printf("введите b");
     scanf("%d",&b);
     for(int n=a;n%a!=0 || n%b!=0; n++){
-        printf("%d",n);
+        printf("%d %d : %d",a,b,n);
     }
 }

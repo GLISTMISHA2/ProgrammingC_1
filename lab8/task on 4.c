@@ -1,69 +1,79 @@
 #include <stdio.h>
-
 int main(){
-    int n;
-    printf("Введите размер матрицы (2 или 3): ");
-    scanf("%d", &n);
-
-    if (n == 2){
-        int array[2][2];
-        float x,y;
+    int choice;
+    printf("Введите размер матрицы 3 или 2: ");
+    scanf("%d",&choice);
+    if (choice == 2){    
+        int m[2][2];//создаем матрицу
         float delta;
-        float r1,r2;
-
-        for (int i=0;i<2;i++){
-            for (int j=0;j<2;j++){
-                printf("Введите элемент a[%d][%d]",i,j);
-                scanf("%d",&array[i][j]);}} 
-
-        printf("Введите значение после 'равно' 1 уравнения: ");
-        scanf("%f",&r1);
-        printf("Введите значение после 'равно' 2 уравнения: ");
-        scanf("%f",&r2);
-
-        delta = (array[0][0]*array[1][1])-(array[0][1]*array[1][0]);
-        x = (r1*array[1][1])-(r2*array[0][1]);
-        y = (r2*array[0][0])-(r1*array[1][0]);
-        
-
-        if (delta == 0){
-            printf("Нет единственного решения.");
-            } 
-        else {
-            printf("x = %.1f\n",x/delta);
-            printf("y = %.1f",y/delta);
-        }
-    }
-    else if (n == 3){
-
-        int array[3][3];
-        float x,y,z,r1,r2,r3,delta;
-
-        for (int i=0;i<3;i++){
-            for (int j=0;j<3;j++){
-                printf("Введите элемент a[%d][%d]",i,j);
-                scanf("%d",&array[i][j]);}}
-
-        printf("Введите значение после 'равно' 1 уравнения: ");
-        scanf("%f",&r1);
-        printf("Введите значение после 'равно' 2 уравнения: ");
-        scanf("%f",&r2);
-        printf("Введите значение после 'равно' 3 уравнения: ");
-        scanf("%f",&r3);
-
-        delta = (array[0][0]*array[1][1]*array[2][2])+(array[0][1]*array[1][2]*array[2][0])+(array[1][0]*array[2][1]*array[0][2])-(array[2][0]*array[1][1]*array[0][2])-(array[1][0]*array[0][1]*array[2][2])-(array[2][1]*array[1][2]*array[0][0]);
-        if (delta == 0) {
-            printf("Нет единственного решения.");
+        float res1,res2;
+        float x,y;
+        for(int i = 0;i<2;++i){//заполняем матрицу
+            for(int j = 0;j<2;++j){
+                printf("Введите [%d][%d] элемент: \n",i,j);
+                scanf("%d",&m[i][j]);
             }
-        else {
-        x = (r1*array[1][1]*array[2][2])+(array[0][1]*array[1][2]*r3)+(r2*array[2][1]*array[0][2])-(r3*array[1][1]*array[0][2])-(r2*array[0][1]*array[2][2])-(array[2][1]*array[1][2]*r1);
-        y = (array[0][0]*r2*array[2][2])+(r1*array[1][2]*array[2][0])+(array[1][0]*r3*array[0][2])-(array[2][0]*r2*array[0][2])-(array[1][0]*r1*array[2][2])-(r3*array[1][2]*array[0][0]);
-        z = (array[0][0]*array[1][1]*r3)+(array[0][1]*r2*array[2][0])+(array[1][0]*array[2][1]*r1)-(array[2][0]*array[1][1]*r1)-(array[1][0]*array[0][1]*r3)-(array[2][1]*r2*array[0][0]);
-        
-        printf("x = %.1f\n",x/delta);
-        printf("y = %.1f\n",y/delta);
-        printf("z = %.1f\n",z/delta);
         }
-
-    }else printf("Неправельный размер матрицы");
-    }
+        //дальше конкретно метот крамера
+        //printf("%d \n",m[1][1]);
+        delta = m[0][0]*m[1][1]-m[1][0]*m[0][1];
+        //printf("%f",delta);
+        printf("Введите свободный член 1 уравнения \n");
+        scanf("%f",&res1);
+        printf("Введите свободный член 2 уравнения \n");
+        scanf("%f",&res2);
+        float dx = (res1*m[1][1])-(res2*m[0][1]);
+        float dy = (res2*m[0][0])-(res1*m[1][0]);
+        x = dx / delta;
+        y = dy / delta;
+        if (delta == 0) {
+            printf("нет единственного решения");
+        }
+        else {
+           printf("x = %f y = %f\n",x,y); 
+        }
+        }
+    if (choice == 3){
+        int m[3][3];//создаем матрицу
+        float delta;
+        float res1,res2,res3;
+        float x,y,z;
+        for(int i = 0;i<3;++i){//заполняем матрицу
+            for(int j = 0;j<3;++j){
+                printf("Введите [%d][%d] элемент: \n",i,j);
+                scanf("%d",&m[i][j]);
+            }
+        }
+        //дальше конкретно метот крамера
+        //printf("%d \n",m[1][1]);
+        delta = m[0][0]*(m[1][1]*m[2][2]-m[1][2]*m[2][1])-
+                m[0][1]*(m[1][0]*m[2][2]-m[1][2]*m[2][0])+
+                m[0][2]*(m[1][0]*m[2][1]-m[1][1]*m[2][0]);
+        //printf("%f",delta);
+        printf("Введите свободный член 1 уравнения \n");
+        scanf("%f",&res1);
+        printf("Введите свободный член 2 уравнения \n");
+        scanf("%f",&res2);
+        printf("Введите свободный член 3 уравнения \n");
+        scanf("%f",&res3);
+        float dx = res1*(m[1][1]*m[2][2]-m[1][2]*m[2][1])-
+                    m[0][1]*(res2*m[2][2]-m[1][2]*res3)+
+                    m[0][2]*(res2*m[2][1]-m[1][1]*res3);
+        float dy = m[0][0]*(res2*m[2][2]-m[1][2]*res3)-
+                    res1*(m[1][0]*m[2][2]-m[1][2]*m[2][0])+
+                    m[0][2]*(m[1][0]*res3-res2*m[2][0]);
+        float dz = m[0][0]*(m[1][1]*res3-res2*m[2][1]) -
+                    m[0][1]*(m[1][0]*res3-res2*m[2][0])+
+                    res1*(m[1][0]*m[2][1]-m[1][1]*m[2][0]);
+        x = dx / delta;
+        y = dy / delta;
+        z = dz / delta;
+        if (delta == 0) {
+            printf("нет единственного решения");
+        }
+        else{printf("x = %f y = %f z = %f\n",x,y,z);}
+        }
+        else{
+            printf("ERROR\n");
+        }
+}

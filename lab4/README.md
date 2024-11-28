@@ -16,5 +16,5 @@
 *******    11111     AAAAA     *****       ooooo
  *****     2222       BBBB     *---*        ooo
   ***      333         CCC     *---*         o
-   *       44           DD     *---*        ooo
+   *         44           DD     *---*        ooo
            5             E     *****       ooooo
